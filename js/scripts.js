@@ -157,7 +157,7 @@ for(let i=0; i<container.length; i++) {
   })
 }
 
-//  Handler fires and closes modal window when user clicks on close button or outside of modal window. If user clicks right or left arrows, handler triggers new html with the next or previous user.  //
+//  Handler fires and closes modal window when user clicks on close button or outside of modal window. If user clicks right or left arrows, handler triggers new html with the next or previous user.  IDEA Refactor so dynamic html isn't repeated twice//
 
 modal.addEventListener('click', (event) => {
   if(event.target.className=='close-modal' || event.target.className=='modal show-modal') {
