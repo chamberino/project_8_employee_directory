@@ -138,40 +138,44 @@ function createObject(data) {
   fetch('https://randomuser.me/api?nat=us&results=12&inc=name,email,location,picture,phone,dob')
     .then(response => response.json())
     .then(data => createObject(data))
-    .then(data => writeToPage(data));
+    .then(data => writeToPage(data))
+    .then(() => {
+      let container = document.querySelectorAll('.flex-item');
+
+      for (let i=0; i<container.length; i++) {
+        container[i].addEventListener('click', () => {
+          if (modal.className=='modal') {
+            selectedUser = i;
+            modal.classList.toggle('show-modal');
+            modal.innerHTML = `
+              <div class="modal-content">
+                <h2 class ="close-modal">&times;</h2>
+                <img class="overlay-image"src='${usersArray[i].picture}'>
+                <div class="arrows">
+                  <p class='left-arrow'>&#9664;</p>
+                  <p class='right-arrow'>&#9654;</p>
+                </div>
+                <h1 class="name">${usersArray[i].name}</h1>
+                <p>${usersArray[i].email}</p>
+                <p>${usersArray[i].city}</p>
+                <div class="user-data">
+                  <p>${usersArray[i].phone}</p>
+                  <p class="user-address">${usersArray[i].address} ${usersArray[i].state} ${usersArray[i].zip}</p>
+                  <p>${usersArray[i].dob}</p>
+                </div>
+              </div>
+            `;
+          }
+        });
+      }
+      
+    });
 
 // ------------------------------------------
 //  OVERLAY FUNCTIONS
 // ------------------------------------------
 
-const container = document.querySelectorAll('.flex-item');
 
-for (let i=0; i<container.length; i++) {
-  container[i].addEventListener('click', () => {
-    if (modal.className=='modal') {
-      selectedUser = i;
-      modal.classList.toggle('show-modal');
-      modal.innerHTML = `
-        <div class="modal-content">
-          <h2 class ="close-modal">&times;</h2>
-          <img class="overlay-image"src='${usersArray[i].picture}'>
-          <div class="arrows">
-            <p class='left-arrow'>&#9664;</p>
-            <p class='right-arrow'>&#9654;</p>
-          </div>
-          <h1 class="name">${usersArray[i].name}</h1>
-          <p>${usersArray[i].email}</p>
-          <p>${usersArray[i].city}</p>
-          <div class="user-data">
-            <p>${usersArray[i].phone}</p>
-            <p class="user-address">${usersArray[i].address} ${usersArray[i].state} ${usersArray[i].zip}</p>
-            <p>${usersArray[i].dob}</p>
-          </div>
-        </div>
-      `;
-    }
-  });
-}
 
 //  Handler fires and closes modal window when user clicks on close button or outside of modal window. If user clicks right or left arrows, handler triggers new html with the next or previous user.  IDEA Refactor so dynamic html isn't repeated twice//
 
@@ -248,4 +252,5 @@ const filterImages = () => {
   }
 }
 
+let search = document.getElementById('search');
 search.addEventListener('keyup', filterImages);
