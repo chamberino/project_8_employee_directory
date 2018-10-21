@@ -147,34 +147,38 @@ function createObject(data) {
           if (modal.className=='modal') {
             selectedUser = i;
             modal.classList.toggle('show-modal');
-            modal.innerHTML = `
-              <div class="modal-content">
-                <h2 class ="close-modal">&times;</h2>
-                <img class="overlay-image"src='${usersArray[i].picture}'>
-                <div class="arrows">
-                  <p class='left-arrow'>&#9664;</p>
-                  <p class='right-arrow'>&#9654;</p>
-                </div>
-                <h1 class="name">${usersArray[i].name}</h1>
-                <p>${usersArray[i].email}</p>
-                <p>${usersArray[i].city}</p>
-                <div class="user-data">
-                  <p>${usersArray[i].phone}</p>
-                  <p class="user-address">${usersArray[i].address} ${usersArray[i].state} ${usersArray[i].zip}</p>
-                  <p>${usersArray[i].dob}</p>
-                </div>
-              </div>
-            `;
+
+            const modalContent = document.querySelector('.modal-content');
+            modalContent.innerHTML = generateModalContent(usersArray, i);
           }
         });
       }
-      
+
     });
 
 // ------------------------------------------
 //  OVERLAY FUNCTIONS
 // ------------------------------------------
 
+
+function generateModalContent(array, user) {
+  return `
+    <h2 class ="close-modal">&times;</h2>
+    <img class="overlay-image"src='${array[user].picture}'>
+    <div class="arrows">
+      <p class='left-arrow'>&#9664;</p>
+      <p class='right-arrow'>&#9654;</p>
+    </div>
+    <h1 class="name">${array[user].name}</h1>
+    <p>${array[user].email}</p>
+    <p>${array[user].city}</p>
+    <div class="user-data">
+      <p>${array[user].phone}</p>
+      <p class="user-address">${array[user].address} ${array[user].state} ${array[user].zip}</p>
+      <p>${array[user].dob}</p>
+    </div>
+  `;
+}
 
 
 //  Handler fires and closes modal window when user clicks on close button or outside of modal window. If user clicks right or left arrows, handler triggers new html with the next or previous user.  IDEA Refactor so dynamic html isn't repeated twice//
@@ -185,47 +189,17 @@ modal.addEventListener('click', event => {
   }
   //else if target == right arrow add to selectedUser
 // U+25b6  &#9654
-  else if (modal.className=='modal show-modal' && event.target.className=='right-arrow') {
+  else if (modal.classList.contains('show-modal') && event.target.className=='right-arrow') {
     if (selectedUser < usersArray.length-1) {
       selectedUser += 1;
       const modalContent = document.querySelector('.modal-content');
-      modalContent.innerHTML = `
-        <h2 class ="close-modal">&times;</h2>
-        <img class="overlay-image"src='${usersArray[selectedUser].picture}'>
-        <div class="arrows">
-          <p class='left-arrow'>&#9664;</p>
-          <p class='right-arrow'>&#9654;</p>
-        </div>
-        <h1 class="name">${usersArray[selectedUser].name}</h1>
-        <p>${usersArray[selectedUser].email}</p>
-        <p>${usersArray[selectedUser].city}</p>
-        <div class="user-data">
-          <p>${usersArray[selectedUser].phone}</p>
-          <p class="user-address">${usersArray[selectedUser].address} ${usersArray[selectedUser].state} ${usersArray[selectedUser].zip}</p>
-          <p>${usersArray[selectedUser].dob}</p>
-        </div>
-      `;
+      modalContent.innerHTML = generateModalContent(usersArray, selectedUser);
     }
-  } else if (modal.className=='modal show-modal' && event.target.className=='left-arrow') {
+  } else if (modal.classList.contains('show-modal') && event.target.className=='left-arrow') {
     if (selectedUser > 0) {
       selectedUser -= 1;
       const modalContent = document.querySelector('.modal-content');
-      modalContent.innerHTML = `
-        <h2 class ="close-modal">&times;</h2>
-        <img class="overlay-image"src='${usersArray[selectedUser].picture}'>
-        <div class="arrows">
-          <p class='left-arrow'>&#9664;</p>
-          <p class='right-arrow'>&#9654;</p>
-        </div>
-        <h1 class="name">${usersArray[selectedUser].name}</h1>
-        <p>${usersArray[selectedUser].email}</p>
-        <p>${usersArray[selectedUser].city}</p>
-        <div class="user-data">
-          <p>${usersArray[selectedUser].phone}</p>
-          <p class="user-address">${usersArray[selectedUser].address} ${usersArray[selectedUser].state} ${usersArray[selectedUser].zip}</p>
-          <p>${usersArray[selectedUser].dob}</p>
-        </div>
-      `;
+      modalContent.innerHTML = generateModalContent(usersArray, selectedUser);
     }
   }
 })
