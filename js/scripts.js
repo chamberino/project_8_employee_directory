@@ -65,6 +65,11 @@ function createObject(data) {
       this.picture = picture
     }
 
+    //  Not currently using this method
+    fullAddress() {
+      return `${this.address} ${this.city} ${this.state} ${this.zip}`;
+    }
+
     set dob(dob) {
       const dobFormatted = dob.substring(5, 10) + '-' + dob.substring(0, 4);
       this._dob = dobFormatted;
