@@ -7,12 +7,13 @@ let selectedUser = 0; // Holds index value of selected user
 const container = document.querySelectorAll('.flex-item')
 const grid = document.querySelector('.grid');
 const modal = document.querySelector('.modal');
+const search = document.getElementById('search');
 
 // ------------------------------------------
 //  HELPER FUNCTIONS
 // ------------------------------------------
 
-// Loops through usersArray and accessed values of user objects then writes to page. Currently this html is being inserted into the divs with the class 'flex-item'. Ideally, this code should create those divs dynamically because if the amount of users fetched form the api were different then the code would fail. The issue is that when I create the content dynamically my event handlers are failing because the elements they are added to do not exist at the time they are added. IDEA: I think I need to set the handler to a parent element and then check to see if the 'flex-item' divs exist.
+// Loops through usersArray and accesses values of user objects then writes to page. Currently this html is being inserted into the divs with the class 'flex-item'. Ideally, this code should create those divs dynamically because if the amount of users fetched form the api were to change then the code would fail. The issue is that when I create the content dynamically my event handlers are failing because the elements they are added to do not exist at the time they are added. IDEA: I think I need to set the handler to a parent element and then check to see if the 'flex-item' divs exist.
 
 function writeToPage(usersArray)  {
     usersArray.forEach((element, index)=>{
