@@ -148,8 +148,7 @@ function createObject(data) {
             selectedUser = i;
             modal.classList.toggle('show-modal');
 
-            const modalContent = document.querySelector('.modal-content');
-            modalContent.innerHTML = generateModalContent(usersArray, i);
+            document.querySelector('.modal-content').innerHTML = generateModalContent(usersArray, i);
           }
         });
       }
@@ -192,14 +191,12 @@ modal.addEventListener('click', event => {
   else if (modal.classList.contains('show-modal') && event.target.className=='right-arrow') {
     if (selectedUser < usersArray.length-1) {
       selectedUser += 1;
-      const modalContent = document.querySelector('.modal-content');
-      modalContent.innerHTML = generateModalContent(usersArray, selectedUser);
+      document.querySelector('.modal-content').innerHTML = generateModalContent(usersArray, selectedUser);
     }
   } else if (modal.classList.contains('show-modal') && event.target.className=='left-arrow') {
     if (selectedUser > 0) {
       selectedUser -= 1;
-      const modalContent = document.querySelector('.modal-content');
-      modalContent.innerHTML = generateModalContent(usersArray, selectedUser);
+      document.querySelector('.modal-content').innerHTML = generateModalContent(usersArray, selectedUser);
     }
   }
 })
