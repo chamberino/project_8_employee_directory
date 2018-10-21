@@ -6,6 +6,7 @@ let usersArray = []; // Array stores objects containing user data
 let selectedUser = 0; // Holds index value of selected user
 const grid = document.querySelector('.grid');
 const modal = document.querySelector('.modal');
+const numberOfResults = 12;
 
 // ------------------------------------------
 //  HELPER FUNCTIONS
@@ -135,7 +136,7 @@ function createObject(data) {
   //  FETCH USERS
   // ------------------------------------------
 
-  fetch('https://randomuser.me/api?nat=us&results=12&inc=name,email,location,picture,phone,dob')
+  fetch(`https://randomuser.me/api?nat=us&results=${numberOfResults}&inc=name,email,location,picture,phone,dob`)
     .then(response => response.json())
     .then(data => createObject(data))
     .then(data => writeToPage(data))
