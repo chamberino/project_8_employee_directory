@@ -18,7 +18,7 @@ const search = document.getElementById('search');
 function writeToPage(usersArray)  {
     usersArray.forEach((element, index)=>{
     container[index].innerHTML = `
-      <img id=user-${index} src=${usersArray[index].picture}>
+      <img id=user-${index} src=${usersArray[index].picture} alt="Photo of ${usersArray[selectedUser].name}">
       <div class="user-info">
         <h1 class="name">${usersArray[index].name}</h1>
           <p>${usersArray[index].email}</p>
@@ -125,6 +125,7 @@ function createObject(data) {
     .then(response => response.json())
     .then(data => createObject(data))
     .then(data => writeToPage(data))
+    .catch(error => console.log('Looks like there was a problem', error))
 
 // ------------------------------------------
 //  OVERLAY FUNCTIONS
@@ -158,7 +159,7 @@ for(let i=0; i<container.length; i++) {
   })
 }
 
-//  Handler fires and closes modal window when user clicks on close button or outside of modal window. If user clicks right or left arrows, handler triggers new html with the next or previous user.  IDEA Refactor so dynamic html isn't repeated twice//
+//  Handler fires and closes modal window when user clicks on close button or outside of modal window. If user clicks right or left arrows, handler triggers new html with the next or previous user.  IDEA Refactor so dynamic html isn't repeated twice. Even better, //
 
 modal.addEventListener('click', (event) => {
   if(event.target.className=='close-modal' || event.target.className=='modal show-modal') {
